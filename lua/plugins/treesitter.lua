@@ -33,8 +33,6 @@ return {
 					["ia"] = "@parameter.inner",
 					["af"] = "@function.outer",
 					["if"] = "@function.inner",
-					["ac"] = "@class.outer",
-					["ic"] = "@class.inner",
 				},
 			},
 			move = {
@@ -44,7 +42,7 @@ return {
 					["]m"] = "@function.outer",
 					["]]"] = { query = "@class.outer", desc = "Next class start" },
 					["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-					["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+					-- ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
 				},
 				goto_next_end = {
 					["]M"] = "@function.outer",
@@ -52,6 +50,7 @@ return {
 				},
 				goto_previous_start = {
 					["[m"] = "@function.outer",
+					["[s"] = { query = "@scope", query_group = "locals", desc = "Previous scope" },
 					["[["] = "@class.outer",
 				},
 				goto_previous_end = {
@@ -59,20 +58,25 @@ return {
 					["[]"] = "@class.outer",
 				},
 				goto_next = {
-					["]d"] = "@conditional.outer",
+					-- ["]d"] = "@conditional.outer",
 				},
 				goto_previous = {
-					["[d"] = "@conditional.outer",
+					-- ["[d"] = "@conditional.outer",
 				},
 			},
 		},
-		-- context_commentstring = {
-		-- 	enable = true,
-		-- },
+		incremental_selection = {
+			enable = true,
+			keymaps = {
+				node_incremental = "gk",
+				node_decremental = "gj",
+				init_selection = false,
+			},
+		},
 	},
 	config = function(_, opts)
 		vim.g.skip_ts_context_commentstring_module = true
 		require("nvim-treesitter.configs").setup(opts)
-		require('ts_context_commentstring').setup {}
+		require("ts_context_commentstring").setup({})
 	end,
 }

@@ -47,11 +47,11 @@ vim.keymap.set("n", "<leader>/", function()
 end, { desc = "[/] Fuzzily search in current buffer" })
 
 vim.keymap.set("n", "<leader>sc", telescope_builtin.git_status, { desc = "[S]earch Git [C]ommits" })
-vim.keymap.set("n", "<leader>sf", telescope_builtin.find_files, { desc = "[S]earch [F]iles" })
+vim.keymap.set("n", "<leader>F", telescope_builtin.find_files, { desc = "[S]earch [F]iles" })
+vim.keymap.set("n", "<leader>S", telescope.extensions.live_grep_args.live_grep_args, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sh", telescope_builtin.help_tags, { desc = "[S]earch [H]elp" })
 vim.keymap.set("n", "<leader>sw", telescope_grep_args.grep_word_under_cursor, { desc = "[S]earch current [W]ord" })
 vim.keymap.set("v", "<leader>sw", telescope_grep_args.grep_visual_selection, { desc = "[S]earch current [W]ord" })
-vim.keymap.set("n", "<leader>sg", telescope.extensions.live_grep_args.live_grep_args, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sd", telescope_builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 vim.keymap.set("n", "<leader>ss", telescope_builtin.lsp_document_symbols, { desc = "[S]earch [S]ymbols" })
 
