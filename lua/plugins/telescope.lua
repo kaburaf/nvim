@@ -5,7 +5,6 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-live-grep-args.nvim",
-			"debugloop/telescope-undo.nvim",
 		},
 		opts = function()
 			local actions = require("telescope.actions")
@@ -14,14 +13,6 @@ return {
 
 			return {
 				extensions = {
-					undo = {
-						side_by_side = true,
-						mappings = {
-							["<cr>"] = require("telescope-undo.actions").yank_additions,
-							["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
-							["<C-cr>"] = require("telescope-undo.actions").restore,
-						},
-					},
 					live_grep_args = {
 						auto_quoting = true,
 						mappings = {
@@ -54,7 +45,6 @@ return {
 			local telescope = require("telescope")
 
 			telescope.load_extension("live_grep_args")
-			telescope.load_extension("undo")
 			telescope.setup(opts)
 			telescope.load_extension("fzf")
 		end,
