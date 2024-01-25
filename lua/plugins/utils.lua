@@ -23,12 +23,24 @@ return {
 	},
 	{
 		"NeogitOrg/neogit",
+		keys = {
+			{ "<leader>G", ":Neogit<CR>", silent = true },
+		},
 		opts = {
 			kind = "split",
 			integrations = { diffview = true },
 		},
 	},
-	{ "windwp/nvim-ts-autotag", opts = {} },
+	{
+		"windwp/nvim-ts-autotag",
+		event = "InsertEnter",
+		opts = {},
+	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		opts = {},
+	},
 	{
 		"numToStr/Comment.nvim",
 		opts = {
@@ -45,12 +57,11 @@ return {
 		end,
 	},
 	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		opts = {},
-	},
-	{
 		"phaazon/hop.nvim",
+		keys = {
+			{ "<leader>jc", ":HopChar2<cr>" },
+			{ "<leader>jd", ":HopPattern<cr>" },
+		},
 		opts = {},
 	},
 	{
@@ -59,6 +70,14 @@ return {
 	},
 	{
 		"ThePrimeagen/harpoon",
+		keys = function()
+			local ui = require("harpoon.ui")
+			local mark = require("harpoon.mark")
+			return {
+				{ "<C-e>", ui.toggle_quick_menu },
+				{ "<leader>-", mark.add_file },
+			}
+		end,
 		opts = {},
 	},
 	{

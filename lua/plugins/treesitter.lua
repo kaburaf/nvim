@@ -7,7 +7,6 @@ return {
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
 	},
-
 	opts = {
 		auto_install = false,
 		ensure_installed = {

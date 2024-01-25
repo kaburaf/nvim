@@ -19,8 +19,11 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 return {
-	-- Stylus highlight
-	"wavded/vim-stylus",
+	{
+		"wavded/vim-stylus",
+		ft = { "stylus" },
+		opts = {},
+	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		event = { "BufReadPre", "BufNewFile" },
@@ -35,9 +38,6 @@ return {
 				end,
 			},
 		},
-		config = function(_, opts)
-			require("mason-lspconfig").setup(opts)
-		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -66,15 +66,9 @@ return {
 				},
 			}
 		end,
-		config = function(_, opts)
-			require("null-ls").setup(opts)
-		end,
 	},
 	{
 		"williamboman/mason.nvim",
 		opts = {},
-		config = function(_, opts)
-			require("mason").setup(opts)
-		end,
 	},
 }
