@@ -11,8 +11,6 @@ vim.keymap.set("n", "[q", ":cprev<CR>", { desc = "Prev item in Quickfix list" })
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.keymap.set("n", "<leader>=", ":Lex<CR>")
-
 -- Completion
 
 local luasnip = require("luasnip")

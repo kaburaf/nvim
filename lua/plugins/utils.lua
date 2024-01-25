@@ -3,6 +3,19 @@ return {
 	"tpope/vim-surround",
 	"tpope/vim-rhubarb",
 	{
+		"stevearc/oil.nvim",
+		keys = {
+			{
+				"<leader>=",
+				function()
+					require("oil").toggle_float(".")
+				end,
+				silent = true,
+			},
+		},
+		opts = {},
+	},
+	{
 		"sindrets/diffview.nvim",
 		opts = {
 			use_icons = false,
