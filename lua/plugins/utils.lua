@@ -1,7 +1,6 @@
 return {
-	"tpope/vim-sleuth",
+
 	"tpope/vim-surround",
-	"tpope/vim-rhubarb",
 	{
 		"stevearc/oil.nvim",
 		keys = {
@@ -33,13 +32,15 @@ return {
 	},
 	{
 		"windwp/nvim-ts-autotag",
-		event = "InsertEnter",
+		ft = { "javascript", "html", "vue", "php", "markdown" },
 		opts = {},
 	},
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
-		opts = {},
+		opts = {
+			disable_in_visualblock = true,
+		},
 	},
 	{
 		"numToStr/Comment.nvim",
@@ -95,8 +96,5 @@ return {
 				untracked = { text = "┆" },
 			},
 		},
-		config = function(_, opts)
-			require("gitsigns").setup(opts)
-		end,
 	},
 }
