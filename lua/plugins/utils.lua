@@ -1,6 +1,9 @@
 return {
-
-	"tpope/vim-surround",
+	{
+		"kylechui/nvim-surround",
+		event = "VeryLazy",
+		opts = {},
+	},
 	{
 		"stevearc/oil.nvim",
 		keys = {
