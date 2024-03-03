@@ -18,10 +18,11 @@ cmd(":command! Q q")
 opt.laststatus = 3
 opt.showmode = false
 opt.encoding = "utf-8"
-opt.tabstop = 4
-opt.shiftwidth = 4
+opt.tabstop = 2
+opt.shiftwidth = 2
 opt.expandtab = true
 opt.smartindent = true
+opt.shiftround = true
 
 opt.hlsearch = false
 opt.incsearch = true
@@ -52,7 +53,6 @@ opt.pumblend = 10
 opt.pumheight = 10
 opt.sidescrolloff = 8
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
-opt.shiftround = true
 opt.shortmess:append({ W = true, I = true, c = true })
 opt.signcolumn = "yes"
 opt.splitbelow = true
