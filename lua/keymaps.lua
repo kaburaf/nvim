@@ -49,3 +49,15 @@ vim.keymap.set("n", "<leader>hu", gitsigns.undo_stage_hunk)
 vim.keymap.set("n", "<leader>hb", gitsigns.blame_line)
 vim.keymap.set("n", "<leader>hd", gitsigns.diffthis)
 vim.keymap.set("n", "<leader>hQ", gitsigns.toggle_deleted)
+
+-- Todo Comments
+vim.keymap.set("n", "]t", function()
+  require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+
+vim.keymap.set("n", "[t", function()
+  require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
+
+vim.keymap.set("n", "<leader>T", ':TodoTelescope keywords=TODO,FIXME,FIX<CR>',
+  { silent = true, desc = "Telescope for TODOs and FIXes" })
