@@ -64,25 +64,18 @@ opt.foldlevelstart = 99
 vim.diagnostic.config({
 	virtual_text = false,
 	update_in_insert = false,
+	float = {
+		border = "rounded",
+	},
 })
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
 -- Diagnostics signs
 vim.fn.sign_define(
-  'DiagnosticSignError',
-  { texthl = 'DiagnosticSignError', text = '', numhl = 'DiagnosticSignError' }
+	"DiagnosticSignError",
+	{ texthl = "DiagnosticSignError", text = "", numhl = "DiagnosticSignError" }
 )
-
-vim.fn.sign_define(
-  'DiagnosticSignWarn',
-  { texthl = 'DiagnosticSignWarn', text = '', numhl = 'DiagnosticSignWarn' }
-)
-
-vim.fn.sign_define(
-  'DiagnosticSignHint',
-  { texthl = 'DiagnosticSignHint', text = '', numhl = 'DiagnosticSignHint' }
-)
-
-vim.fn.sign_define(
-  'DiagnosticSignInfo',
-  { texthl = 'DiagnosticSignInfo', text = '', numhl = 'DiagnosticSignInfo' }
-)
+vim.fn.sign_define("DiagnosticSignWarn", { texthl = "DiagnosticSignWarn", text = "", numhl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignHint", { texthl = "DiagnosticSignHint", text = "", numhl = "DiagnosticSignHint" })
+vim.fn.sign_define("DiagnosticSignInfo", { texthl = "DiagnosticSignInfo", text = "", numhl = "DiagnosticSignInfo" })
