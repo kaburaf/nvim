@@ -50,10 +50,14 @@ return {
 			ensure_installed = vim.tbl_keys(servers),
 			handlers = {
 				function(server_name)
+					local server = servers[server_name]
+					if server == nil then
+						return
+					end
 					require("lspconfig")[server_name].setup({
 						capabilities = capabilities,
-						handlers = servers[server_name].handlers,
-						settings = servers[server_name].settings,
+						handlers = server.handlers or {},
+						settings = server.settings or {},
 					})
 				end,
 			},
@@ -61,30 +65,33 @@ return {
 	},
 	{
 		"stevearc/conform.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			local conform = require("conform")
-			conform.setup({
-				formatters_by_ft = {
-					javascript = { "prettierd" },
-					typescript = { "prettierd" },
-					vue = { "prettierd" },
-					css = { "prettierd" },
-					html = { "prettierd" },
-					json = { "prettierd" },
-					yaml = { "prettierd" },
-					markdown = { "prettierd" },
-					lua = { "stylua" },
-				},
-			})
-			vim.keymap.set({ "n", "v" }, "<C-p>", function()
-				conform.format({
-					lsp_fallback = false,
-					async = false,
-					timeout_ms = 500,
-				})
-			end, { desc = "Format file or range (in visual mode)" })
-		end,
+		keys = {
+			{
+				"<C-p>",
+				function()
+					local conform = require("conform")
+					conform.format({
+						lsp_fallback = false,
+						async = false,
+						timeout_ms = 500,
+					})
+				end,
+				mode = { "n", "v" },
+			},
+		},
+		opts = {
+			formatters_by_ft = {
+				javascript = { "prettierd" },
+				typescript = { "prettierd" },
+				vue = { "prettierd" },
+				css = { "prettierd" },
+				html = { "prettierd" },
+				json = { "prettierd" },
+				yaml = { "prettierd" },
+				markdown = { "prettierd" },
+				lua = { "stylua" },
+			},
+		},
 	},
 	{
 		"mfussenegger/nvim-lint",

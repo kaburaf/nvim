@@ -1,130 +1,151 @@
 return {
-  {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {
-      signs = false,
-      highlight = {
-        multiline = false
-      }
-    },
-  },
-  {
-    "kylechui/nvim-surround",
-    event = "VeryLazy",
-    opts = {},
-  },
-  {
-    "stevearc/oil.nvim",
-    keys = {
-      {
-        "<leader>=",
-        function()
-          require("oil").toggle_float(".")
-        end,
-        silent = true,
-      },
-    },
-    opts = {},
-  },
-  {
-    "sindrets/diffview.nvim",
-    keys = {
-      {
-        "<leader>D",
-        function()
-          local lib = require("diffview.lib")
-          local view = lib.get_current_view()
-          if view then
-            -- Current tabpage is a Diffview; close it
-            vim.cmd.DiffviewClose()
-          else
-            -- No open Diffview exists: open a new one
-            vim.cmd.DiffviewOpen()
-          end
-        end,
-        silent = true
-      },
-    },
-    opts = {
-      use_icons = false,
-    },
-  },
-  {
-    "NeogitOrg/neogit",
-    keys = {
-      { "<leader>G", ":Neogit<CR>", silent = true },
-    },
-    opts = {
-      kind = "split",
-      integrations = { diffview = true },
-    },
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    ft = { "javascript", "html", "vue", "php", "markdown" },
-    opts = {},
-  },
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {
-      disable_in_visualblock = true,
-    },
-  },
-  {
-    "numToStr/Comment.nvim",
-    opts = {
-      sticky = false,
-    },
-    config = function(_, opts)
-      local cmt = require("Comment")
-      local ft = require("Comment.ft")
+	"tpope/vim-sleuth",
+	{
+		"lewis6991/gitsigns.nvim",
+		lazy = false,
+		opts = {
+			watch_gitdir = {
+				enabled = false,
+			},
+			signs = {
+				add = { text = "│" },
+				change = { text = "│" },
+				delete = { text = "_" },
+				topdelete = { text = "‾" },
+				changedelete = { text = "~" },
+				untracked = { text = "┆" },
+			},
+		},
+	},
+	{
+		"echasnovski/mini.files",
+		keys = { { "<leader>=", ":lua MiniFiles.open()<CR>", silent = true } },
+		opts = {},
+	},
+	{
+		"echasnovski/mini.comment",
+		opts = {
+			hooks = {
+				pre = function()
+					require("ts_context_commentstring.internal").update_commentstring()
+				end,
+			},
+		},
+	},
+	{
+		"echasnovski/mini.statusline",
+		opts = function()
+			local statusline = require("mini.statusline")
 
-      ft.pug = { "//-%s", "//-%s" }
-      ft.styl = { "//%s", "/*%s*/" }
+			local active_statusline = function()
+				local git = statusline.section_git({ trunc_width = 75 })
+				local diagnostics = statusline.section_diagnostics({ trunc_width = 75 })
+				local filename = statusline.section_filename({ trunc_width = 140 })
 
-      cmt.setup(opts)
-    end,
-  },
-  {
-    "phaazon/hop.nvim",
-    keys = {
-      { "<leader>jc", ":HopChar2<cr>" },
-      { "<leader>jd", ":HopPattern<cr>" },
-    },
-    opts = {},
-  },
-  {
-    "nvim-lua/plenary.nvim",
-    lazy = true,
-  },
-  {
-    "ThePrimeagen/harpoon",
-    keys = function()
-      local ui = require("harpoon.ui")
-      local mark = require("harpoon.mark")
-      return {
-        { "<C-e>",     ui.toggle_quick_menu },
-        { "<leader>-", mark.add_file },
-      }
-    end,
-    opts = {},
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    opts = {
-      watch_gitdir = {
-        enabled = false,
-      },
-      signs = {
-        add = { text = "│" },
-        change = { text = "│" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "┆" },
-      },
-    },
-  },
+				return statusline.combine_groups({
+					{ hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
+					"%=",
+					{ hl = "MiniStatuslineFilename", strings = { filename } },
+					{ hl = "MiniStatuslineFilename", strings = { "%p%%" } },
+				})
+			end
+
+			return {
+				content = {
+					active = active_statusline,
+				},
+				set_vim_settings = false,
+			}
+		end,
+	},
+	{
+		"echasnovski/mini.pairs",
+		opts = {},
+	},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			signs = false,
+			highlight = {
+				multiline = false,
+			},
+		},
+	},
+	{
+		"sindrets/diffview.nvim",
+		keys = {
+			{
+				"<leader>D",
+				function()
+					local lib = require("diffview.lib")
+					local view = lib.get_current_view()
+					if view then
+						-- Current tabpage is a Diffview; close it
+						vim.cmd.DiffviewClose()
+					else
+						-- No open Diffview exists: open a new one
+						vim.cmd.DiffviewOpen()
+					end
+				end,
+				silent = true,
+			},
+		},
+		opts = {
+			use_icons = false,
+		},
+	},
+	{
+		"NeogitOrg/neogit",
+		keys = {
+			{ "<leader>G", ":Neogit<CR>", silent = true },
+		},
+		opts = {
+			kind = "split",
+			integrations = { diffview = true },
+		},
+	},
+	{
+		"windwp/nvim-ts-autotag",
+		ft = { "javascript", "html", "vue", "php", "markdown" },
+		opts = {},
+	},
+	{
+		"nvim-lua/plenary.nvim",
+		lazy = true,
+	},
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		opts = {},
+	},
+	{
+		"phaazon/hop.nvim",
+		keys = {
+			{ "F", ":HopChar2<cr>" },
+			{ "f", ":HopChar1CurrentLine<cr>" },
+		},
+		opts = {},
+	},
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			local harpoon = require("harpoon")
+			vim.keymap.set("n", "<leader>a", function()
+				harpoon:list():append()
+			end)
+			vim.keymap.set("n", "<C-e>", function()
+				harpoon.ui:toggle_quick_menu(harpoon:list())
+			end)
+			vim.keymap.set("n", "<C-]>", function()
+				harpoon:list():next()
+			end)
+			vim.keymap.set("n", "<C-[>", function()
+				harpoon:list():prev()
+			end)
+		end,
+	},
 }

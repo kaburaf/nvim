@@ -11,6 +11,9 @@ vim.keymap.set("n", "[q", ":cprev<CR>", { desc = "Prev item in Quickfix list" })
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+vim.keymap.set({ "n" }, "Y", '"+yy', { silent = true })
+vim.keymap.set({ "v" }, "Y", '"+y', { silent = true })
+
 -- Completion
 
 local luasnip = require("luasnip")
@@ -52,12 +55,16 @@ vim.keymap.set("n", "<leader>hQ", gitsigns.toggle_deleted)
 
 -- Todo Comments
 vim.keymap.set("n", "]t", function()
-  require("todo-comments").jump_next()
+	require("todo-comments").jump_next()
 end, { desc = "Next todo comment" })
 
 vim.keymap.set("n", "[t", function()
-  require("todo-comments").jump_prev()
+	require("todo-comments").jump_prev()
 end, { desc = "Previous todo comment" })
 
-vim.keymap.set("n", "<leader>T", ':TodoTelescope keywords=TODO,FIXME,FIX<CR>',
-  { silent = true, desc = "Telescope for TODOs and FIXes" })
+vim.keymap.set(
+	"n",
+	"<leader>T",
+	":TodoTelescope keywords=TODO,FIXME,FIX<CR>",
+	{ silent = true, desc = "Telescope for TODOs and FIXes" }
+)

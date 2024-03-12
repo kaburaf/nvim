@@ -1,5 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	event = { "BufReadPre", "BufNewFile" },
 	build = ":TSUpdate",
 	dependencies = {
 		{
@@ -18,7 +19,9 @@ return {
 			"typescript",
 			"vue",
 		},
-		indent = { enable = true },
+		indent = {
+			enable = true,
+		},
 		highlight = {
 			enable = true,
 			additional_vim_regex_highlighting = false,
@@ -67,9 +70,10 @@ return {
 		incremental_selection = {
 			enable = true,
 			keymaps = {
-				node_incremental = "gk",
-				node_decremental = "gj",
-				init_selection = false,
+				init_selection = "<C-q>",
+				node_incremental = "<C-q>",
+				node_decremental = "<bs>",
+				scope_incremental = false,
 			},
 		},
 	},
