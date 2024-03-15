@@ -1,14 +1,13 @@
 local servers = {
 	cssls = {},
 	html = {},
-	volar = {
-		handlers = {
-			["textDocument/publishDiagnostics"] = function(...) end,
-		},
-	},
+	volar = {},
 	tsserver = {
-		handlers = {
-			["textDocument/publishDiagnostics"] = function(...) end,
+		settings = {
+			implicitProjectConfiguration = {
+				checkJs = true,
+				allowJs = true,
+			},
 		},
 	},
 	jsonls = {},
@@ -25,8 +24,12 @@ local servers = {
 	},
 }
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local capabilities = vim.tbl_deep_extend(
+	"force",
+	{},
+	vim.lsp.protocol.make_client_capabilities(),
+	require("cmp_nvim_lsp").default_capabilities()
+)
 
 return {
 	{
@@ -79,19 +82,29 @@ return {
 				mode = { "n", "v" },
 			},
 		},
-		opts = {
-			formatters_by_ft = {
-				javascript = { "prettierd" },
-				typescript = { "prettierd" },
-				vue = { "prettierd" },
-				css = { "prettierd" },
-				html = { "prettierd" },
-				json = { "prettierd" },
-				yaml = { "prettierd" },
-				markdown = { "prettierd" },
-				lua = { "stylua" },
-			},
-		},
+		opts = function()
+			return {
+				formatters = {
+					prettierd = {
+						env = {
+							PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("$HOME")
+								.. "/.config/nvim/lua/plugins/lsp/.prettierrc",
+						},
+					},
+				},
+				formatters_by_ft = {
+					javascript = { "prettierd" },
+					typescript = { "prettierd" },
+					vue = { "prettierd" },
+					css = { "prettierd" },
+					html = { "prettierd" },
+					json = { "prettierd" },
+					yaml = { "prettierd" },
+					markdown = { "prettierd" },
+					lua = { "stylua" },
+				},
+			}
+		end,
 	},
 	{
 		"mfussenegger/nvim-lint",

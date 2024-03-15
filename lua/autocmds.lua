@@ -58,11 +58,6 @@ local aucmd_dict = {
 				bufmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
 				bufmap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
 				bufmap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
-				-- bufmap(
-				-- 	"n",
-				-- 	"<c-p>",
-				-- 	"<cmd>lua vim.lsp.buf.format({filter = function(client) return client.name ~= 'volar' end})<cr>"
-				-- )
 			end,
 		},
 	},

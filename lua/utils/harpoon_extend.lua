@@ -1,3 +1,5 @@
+local M = {}
+
 local action_state = require("telescope.actions.state")
 local action_utils = require("telescope.actions.utils")
 local entry_display = require("telescope.pickers.entry_display")
@@ -50,6 +52,9 @@ end
 
 local delete_harpoon_mark = function(prompt_bufnr)
 	local selection = action_state.get_selected_entry()
+	if selection == nil then
+		return
+	end
 	harpoon:list():remove(selection.value)
 
 	local function get_selections()
@@ -69,36 +74,6 @@ local delete_harpoon_mark = function(prompt_bufnr)
 	current_picker:refresh(generate_new_finder(), { reset_prompt = true })
 end
 
-local move_mark_up = function(prompt_bufnr)
-	local selection = action_state.get_selected_entry()
-	local length = harpoon:list():length()
-
-	if selection.index == length then
-		return
-	end
-
-	local mark_list = harpoon:list().items
-
-	table.remove(mark_list, selection.index)
-	table.insert(mark_list, selection.index + 1, selection.value)
-
-	local current_picker = action_state.get_current_picker(prompt_bufnr)
-	current_picker:refresh(generate_new_finder(), { reset_prompt = true })
-end
-
-local move_mark_down = function(prompt_bufnr)
-	local selection = action_state.get_selected_entry()
-	if selection.index == 1 then
-		return
-	end
-	local mark_list = harpoon:list().items
-	table.remove(mark_list, selection.index)
-	table.insert(mark_list, selection.index - 1, selection.value)
-	local current_picker = action_state.get_current_picker(prompt_bufnr)
-	current_picker:refresh(generate_new_finder(), { reset_prompt = true })
-end
-
-local M = {}
 function M.harpoon_markers(opts)
 	opts = opts or {}
 
@@ -110,13 +85,6 @@ function M.harpoon_markers(opts)
 			previewer = conf.grep_previewer(opts),
 			attach_mappings = function(_, map)
 				map({ "n", "i" }, "<C-d>", delete_harpoon_mark)
-				-- map("n", "<C-d>", delete_harpoon_mark)
-
-				-- map("i", "<C-p>", move_mark_up)
-				-- map("n", "<C-p>", move_mark_up)
-				--
-				-- map("i", "<C-n>", move_mark_down)
-				-- map("n", "<C-n>", move_mark_down)
 				return true
 			end,
 		})

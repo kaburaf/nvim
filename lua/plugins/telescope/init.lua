@@ -16,7 +16,7 @@ return {
 			return {
 				{
 					"<C-e>",
-					require("plugins/telescope/harpoon_picker").harpoon_markers,
+					require("utils").harpoon.harpoon_markers,
 				},
 				{ "<leader><space>", telescope_builtin.buffers },
 				{

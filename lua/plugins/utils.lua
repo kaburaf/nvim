@@ -19,7 +19,11 @@ return {
 	},
 	{
 		"echasnovski/mini.files",
-		keys = { { "<leader>=", ":lua MiniFiles.open()<CR>", silent = true } },
+		cmd = { "MiniFiles" },
+		keys = {
+			{ "<leader>=", ":lua MiniFiles.open()<CR>", silent = true },
+			{ "<leader>+", ":lua MiniFiles.open(vim.fn.expand('%:h'))<CR>", silent = true },
+		},
 		opts = {},
 	},
 	{
@@ -49,7 +53,6 @@ return {
 					{ hl = "MiniStatuslineFilename", strings = { "%p%%" } },
 				})
 			end
-
 			return {
 				content = {
 					active = active_statusline,
@@ -60,7 +63,34 @@ return {
 	},
 	{
 		"echasnovski/mini.pairs",
-		opts = {},
+		opts = function()
+			local neigh_pattern = "[^\\]%W"
+			return {
+				mappings = {
+					["("] = { action = "open", pair = "()", neigh_pattern = neigh_pattern },
+					["["] = { action = "open", pair = "[]", neigh_pattern = neigh_pattern },
+					["{"] = { action = "open", pair = "{}", neigh_pattern = neigh_pattern },
+
+					[")"] = { action = "close", pair = "()", neigh_pattern = "[^\\]." },
+					["]"] = { action = "close", pair = "[]", neigh_pattern = "[^\\]." },
+					["}"] = { action = "close", pair = "{}", neigh_pattern = "[^\\]." },
+
+					['"'] = {
+						action = "closeopen",
+						pair = '""',
+						neigh_pattern = neigh_pattern,
+						register = { cr = false },
+					},
+					["'"] = { action = "closeopen", pair = "''", neigh_pattern = "[^%a\\].", register = { cr = false } },
+					["`"] = {
+						action = "closeopen",
+						pair = "``",
+						neigh_pattern = neigh_pattern,
+						register = { cr = false },
+					},
+				},
+			}
+		end,
 	},
 	{
 		"folke/todo-comments.nvim",
@@ -106,11 +136,6 @@ return {
 		},
 	},
 	{
-		"windwp/nvim-ts-autotag",
-		ft = { "javascript", "html", "vue", "php", "markdown" },
-		opts = {},
-	},
-	{
 		"nvim-lua/plenary.nvim",
 		lazy = true,
 	},
@@ -122,11 +147,23 @@ return {
 	},
 	{
 		"phaazon/hop.nvim",
-		keys = {
-			{ "F", ":HopChar2<cr>" },
-			{ "f", ":HopChar1CurrentLine<cr>" },
-		},
-		opts = {},
+		keys = function()
+			local hopExtend = require("utils").hop
+			return {
+				{ "F", ":HopChar2<cr>" },
+				{ "f", ":HopChar1CurrentLine<cr>", mode = { "n", "o" } },
+				{
+					"t",
+					hopExtend.hintTill1,
+					mode = { "n", "o" },
+				},
+			}
+		end,
+		opts = function()
+			return {
+				hint_position = require("hop.hint").HintPosition.END,
+			}
+		end,
 	},
 	{
 		"ThePrimeagen/harpoon",
@@ -138,7 +175,6 @@ return {
 					local harpoon = require("harpoon")
 					harpoon:list():append()
 				end,
-				desc = "Add to Harpoon",
 			},
 		},
 		dependencies = {
