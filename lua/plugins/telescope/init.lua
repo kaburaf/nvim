@@ -4,6 +4,7 @@ return {
 		branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
+			"debugloop/telescope-undo.nvim",
 			"nvim-telescope/telescope-live-grep-args.nvim",
 			-- NOTE: In case of error do: cd ~/.local/share/nvim/lazy/telescope-fzf-native.nvim && make
 			"nvim-telescope/telescope-fzf-native.nvim",
@@ -13,6 +14,10 @@ return {
 			local telescope_builtin = require("telescope.builtin")
 			local telescope_grep_args = require("telescope-live-grep-args.shortcuts")
 			return {
+				{
+					"<C-e>",
+					require("plugins/telescope/harpoon_picker").harpoon_markers,
+				},
 				{ "<leader><space>", telescope_builtin.buffers },
 				{
 					"<leader>/",
@@ -31,6 +36,7 @@ return {
 				{ "<leader>ss", telescope_builtin.lsp_document_symbols },
 				{ "<leader>sw", telescope_grep_args.grep_word_under_cursor },
 				{ "<leader>sw", telescope_grep_args.grep_visual_selection, mode = "v" },
+				{ "<leader>u", telescope.extensions.undo.undo },
 				{
 					"<leader>f",
 					function()
@@ -60,6 +66,10 @@ return {
 					},
 				},
 				extensions = {
+					undo = {
+						side_by_side = true,
+						saved_only = true,
+					},
 					fzf = {
 						fuzzy = true,
 						override_generic_sorter = true,
@@ -84,6 +94,7 @@ return {
 			local telescope = require("telescope")
 			telescope.setup(opts)
 			telescope.load_extension("fzf")
+			telescope.load_extension("undo")
 			telescope.load_extension("live_grep_args")
 		end,
 	},
