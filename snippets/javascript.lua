@@ -1,4 +1,9 @@
 return {
+	s({ trig = "esdis", dscr = "Disable ESLinter" }, t("/* eslint-disable */"), {}),
+	s(
+		{ trig = "prom", dscr = "Promise" },
+		fmt("new Promise((resolve, reject) => {\n\t[]\n})", { i(0) }, { delimiters = "[]" })
+	),
 	s(
 		{ trig = "fori", dscr = "For loop" },
 		fmt(
