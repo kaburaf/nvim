@@ -27,15 +27,6 @@ local aucmd_dict = {
 			end,
 		},
 	},
-	BufNewFile = {
-		{
-			pattern = "*.vue",
-			callback = function()
-				local skeletons_dir = vim.fn.expand("$HOME/.config/nvim/skeletons/")
-				vim.cmd(string.format("0r %s", skeletons_dir .. "skeleton.vue"))
-			end,
-		},
-	},
 	LspAttach = {
 		{
 			desc = "LSP actions",
