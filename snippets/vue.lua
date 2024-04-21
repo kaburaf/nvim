@@ -1,5 +1,29 @@
 return {
 	s(
+		{ trig = "vvue3", filetype = "html", dscr = "Vue3 SFC template" },
+		fmta(
+			[[
+			<template>
+				<div class="{}"></div>
+			</template>
+			<script setup></script>
+			<style scoped lang="{}">
+			.{}
+				{}
+			</style>
+		]],
+			{
+				i(1),
+				i(2, "sass"),
+				rep(1),
+				i(0),
+			},
+			{
+				delimiters = "{}",
+			}
+		)
+	),
+	s(
 		{ trig = "vvprop", filetype = "javascript", dscr = "Vue property" },
 		fmta(
 			[[
