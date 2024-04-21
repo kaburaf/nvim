@@ -1,7 +1,13 @@
 local servers = {
 	cssls = {},
 	html = {},
-	volar = {},
+	volar = {
+		init_options = {
+			vue = {
+				hybridMode = false,
+			},
+		},
+	},
 	tsserver = {
 		settings = {
 			implicitProjectConfiguration = {
