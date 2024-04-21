@@ -1,16 +1,12 @@
 return {
 	{
-		"windwp/nvim-ts-autotag",
-		ft = { "javascript", "html", "vue", "php", "markdown" },
-		opts = {},
-	},
-	{
 		"nvim-treesitter/nvim-treesitter",
 		event = { "BufReadPre", "BufNewFile" },
 		build = ":TSUpdate",
 		dependencies = {
 			{
 				"nvim-treesitter/nvim-treesitter-textobjects",
+				"nvim-treesitter/nvim-treesitter-context",
 				"JoosepAlviste/nvim-ts-context-commentstring",
 			},
 		},
@@ -44,26 +40,26 @@ return {
 					},
 				},
 				move = {
-					enable = true,
+					enable = false,
 					set_jumps = true, -- whether to set jumps in the jumplist
 					goto_next_start = {
-						["]m"] = "@function.outer",
-						["]]"] = { query = "@class.outer", desc = "Next class start" },
-						["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
+						-- ["]m"] = "@function.outer",
+						-- ["]]"] = { query = "@class.outer", desc = "Next class start" },
+						-- ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
 						-- ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
 					},
 					goto_next_end = {
-						["]M"] = "@function.outer",
-						["]["] = "@class.outer",
+						-- ["]M"] = "@function.outer",
+						-- ["]["] = "@class.outer",
 					},
 					goto_previous_start = {
-						["[m"] = "@function.outer",
-						["[s"] = { query = "@scope", query_group = "locals", desc = "Previous scope" },
-						["[["] = "@class.outer",
+						-- ["[m"] = "@function.outer",
+						-- ["[s"] = { query = "@scope", query_group = "locals", desc = "Previous scope" },
+						-- ["[["] = "@class.outer",
 					},
 					goto_previous_end = {
-						["[M"] = "@function.outer",
-						["[]"] = "@class.outer",
+						-- ["[M"] = "@function.outer",
+						-- ["[]"] = "@class.outer",
 					},
 					goto_next = {
 						-- ["]d"] = "@conditional.outer",
