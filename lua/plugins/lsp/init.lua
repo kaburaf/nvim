@@ -57,11 +57,10 @@ return {
 					if server == nil then
 						return
 					end
-					require("lspconfig")[server_name].setup({
+					local opts = vim.tbl_deep_extend("force", {
 						capabilities = capabilities,
-						handlers = server.handlers or {},
-						settings = server.settings or {},
-					})
+					}, type(server) == "function" and server() or server)
+					require("lspconfig")[server_name].setup(opts)
 				end,
 			},
 		},
