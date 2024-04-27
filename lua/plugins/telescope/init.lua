@@ -30,6 +30,7 @@ return {
 				},
 				{ "<leader>F", telescope_builtin.find_files },
 				{ "<leader>S", telescope.extensions.live_grep_args.live_grep_args },
+				{ "<leader>so", telescope_builtin.oldfiles },
 				{ "<leader>sh", telescope_builtin.help_tags },
 				{ "<leader>sc", telescope_builtin.git_status },
 				{ "<leader>sd", telescope_builtin.diagnostics },
@@ -63,6 +64,11 @@ return {
 							["<C-n>"] = actions.cycle_history_next,
 							["<C-p>"] = actions.cycle_history_prev,
 						},
+					},
+				},
+				pickers = {
+					oldfiles = {
+						cwd_only = true,
 					},
 				},
 				extensions = {
