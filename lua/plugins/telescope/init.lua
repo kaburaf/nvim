@@ -14,10 +14,10 @@ return {
 			local telescope_builtin = require("telescope.builtin")
 			local telescope_grep_args = require("telescope-live-grep-args.shortcuts")
 			return {
-				{
-					"<C-e>",
-					require("utils").harpoon.harpoon_markers,
-				},
+				-- {
+				-- 	"<C-e>",
+				-- 	require("utils").harpoon.harpoon_markers,
+				-- },
 				{ "<leader><space>", telescope_builtin.buffers },
 				{
 					"<leader>/",

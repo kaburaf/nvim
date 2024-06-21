@@ -2,8 +2,13 @@
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set("n", "<C-s>", ":wa<CR>", { silent = true })
+
 vim.keymap.set("n", "*", "*N", { silent = true })
 vim.keymap.set("n", "#", "#N", { silent = true })
+vim.keymap.set("n", "n", "nzz", { silent = true })
+vim.keymap.set("n", "N", "Nzz", { silent = true })
+
+vim.keymap.set("n", "<C-c>", ":bd!<CR>", { silent = true })
 
 vim.keymap.set("n", "]q", ":cnext<CR>", { desc = "Next item in Quickfix list" })
 vim.keymap.set("n", "[q", ":cprev<CR>", { desc = "Prev item in Quickfix list" })
@@ -50,6 +55,7 @@ vim.keymap.set("v", "<leader>hr", function()
 end)
 vim.keymap.set("n", "<leader>hu", gitsigns.undo_stage_hunk)
 vim.keymap.set("n", "<leader>hb", gitsigns.blame_line)
+vim.keymap.set("n", "<leader>hB", gitsigns.blame)
 vim.keymap.set("n", "<leader>hd", gitsigns.diffthis)
 vim.keymap.set("n", "<leader>hQ", gitsigns.toggle_deleted)
 

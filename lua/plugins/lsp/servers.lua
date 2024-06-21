@@ -7,11 +7,26 @@ local servers = {
 		},
 	},
 	tsserver = {
-		settings = {
-			implicitProjectConfiguration = {
-				checkJs = true,
-				allowJs = true,
+		filetypes = {
+			"javascript",
+			"typescript",
+			"javascriptreact",
+			"typescriptreact",
+			"typescript.tsx",
+			"vue",
+		},
+		init_options = {
+			plugins = {
+				{
+					name = "@vue/typescript-plugin",
+					location = "/home/karimov/.nvm/versions/node/v16.19.1/lib/node_modules/@vue/typescript-plugin",
+					languages = { "typescript", "vue" },
+				},
 			},
+		},
+		implicitProjectConfiguration = {
+			checkJs = true,
+			allowJs = true,
 		},
 	},
 	lua_ls = {

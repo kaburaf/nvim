@@ -18,6 +18,7 @@ return {
 		return {
 			formatters = {
 				prettierd = {
+					require_cwd = true,
 					env = {
 						PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("$HOME")
 							.. "/.config/nvim/lua/plugins/lsp/.prettierrc",
@@ -26,7 +27,9 @@ return {
 			},
 			formatters_by_ft = {
 				javascript = { "prettierd" },
+				javascriptreact = { "prettierd" },
 				typescript = { "prettierd" },
+				typescriptreact = { "prettierd" },
 				vue = { "prettierd" },
 				css = { "prettierd" },
 				html = { "prettierd" },
